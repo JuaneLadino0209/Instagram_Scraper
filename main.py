@@ -1,10 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 from time import sleep
 
 browser = webdriver.Firefox(executable_path='./geckodriver')
-browser.set_window_size(900,900)
-#browser.maximize_window()
+#browser.set_window_size(900,900)
+browser.maximize_window()
 #sleep(3)
 browser.get("https://www.instagram.com/")
 sleep(2)
@@ -26,15 +27,15 @@ login_button = browser.find_element_by_xpath('/html/body/span/section/main/div/a
 webdriver.common.action_chains.ActionChains(browser)\
    .move_to_element(login_button)\
    .click().perform()
-sleep(5)
+sleep(6)
 
-turn_of_button = browser.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button[2]')
+turn_of_button = browser.find_element_by_xpath('/html/body/div[3]/div/div/div[3]/button[2]')
 webdriver.common.action_chains.ActionChains(browser)\
    .move_to_element(turn_of_button)\
    .click().perform()
 sleep(2)
 
-browser.get("https://www.instagram.com/sebastiancaballero_7/")
+browser.get("https://www.instagram.com/valelopezch/")
 
 following_button = browser.find_element_by_xpath('/html/body/span/section/main/div/header/section/ul/li[3]/a')
 webdriver.common.action_chains.ActionChains(browser)\
@@ -42,27 +43,34 @@ webdriver.common.action_chains.ActionChains(browser)\
    .click().perform()
 sleep(1)
 
+
+temp = browser.find_element_by_xpath('/html/body/span/section/main/div/header/section/ul/li[3]/a/span')
+num_following = temp.text
+print(num_following)
 scroll_button = browser.find_element_by_xpath('/html/body/div[3]/div/div[2]')
-cont = 0
-n = 2
-while True:
+
+for i in range(0,5):
     scroll_button.send_keys(Keys.DOWN)
-    cont = cont + 1
-    if cont == 20:
-        sleep(n)
-        cont = 0
-        n = 0.5
+    sleep(0.6)
+while True:
+    try:
+        name = browser.find_element_by_xpath('/html/body/div[3]/div/div[2]/ul/div/li['+num_following+']/div/div[1]/div[2]/div[1]/a')
+        print("Hello World")
+        break
+    except NoSuchElementException:  #spelling error making this code not work as expected
+        for i in range(0,50):
+            scroll_button.send_keys(Keys.DOWN)
+    pass
+print("succesfull.......\n\n")
 
 
-
-
-
-#for i in range(1,20):
-#    name = browser.find_element_by_xpath('/html/body/div[3]/div/div[2]/ul/div/li['+str(i)+']/div/div[2]/div[1]/div/div/a')
-#    print(name.text)
+for i in range(1,int(num_following) +1):
+    name = browser.find_element_by_xpath('/html/body/div[3]/div/div[2]/ul/div/li['+str(i)+']/div/div[1]/div[2]/div[1]/a')
+    print(name.text)
 
 sleep(5)
 #browser.close()
+
 #/html/body/div[3]/div/div[2]/ul/div/li[1]/div/div[2]/div[1]/div/div/a
 #/html/body/div[3]/div/div[2]/ul/div/li[2]/div/div[2]/div[1]/div/div/a
 #/html/body/div[3]/div/div[2]/ul/div/li[3]/div/div[2]/div[1]/div/div/a
