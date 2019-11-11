@@ -77,7 +77,7 @@ class node:
             follow_list.append(name.text)
         print("Succesfull, Correct conexion get_follow_list.\n")        
         return follow_list
-    
+
     def get_following_list(self):
         following_list = []
         self.browser.get("https://www.instagram.com/"+self.user+"/")
@@ -115,35 +115,75 @@ class node:
             following_list.append(name.text)
         print("Succesfull, Correct conexion get_following_list.\n")        
         return following_list
-    
+
     def get_biography(self):
         self.browser.get("https://www.instagram.com/"+self.user+"/")
         biography = self.browser.find_element_by_xpath('/html/body/span/section/main/div/header/section/div[2]/span')
         return(biography.text)
+
     def get_name(self):
         self.browser.get("https://www.instagram.com/"+self.user+"/")
         name = self.browser.find_element_by_xpath('/html/body/span/section/main/div/header/section/div[2]/h1')
         return(name.text)
+
     def get_like(self):
+        num_likes = 0
+        num_videos = 0
         self.browser.get("https://www.instagram.com/"+self.user+"/")
         sleep(2)
-        #self.browser.execute_script("window.scrollTo(0, 600)") 
-            
+        temp = self.browser.find_element_by_xpath('/html/body/span/section/main/div/header/section/ul/li[1]/span/span')
+        num_pub = temp.text
+        print("number of publications: " + num_pub + "\n")
+        self.browser.execute_script("window.scrollTo(0,650);")
+        print("counting number of likes, please whai a few minutes .....\n")
+
+        photo_button = self.browser.find_element_by_xpath('/html/body/span/section/main/div/div[3]/article/div[1]/div/div[1]/div[1]/a/div/div[1]')
         webdriver.common.action_chains.ActionChains(self.browser)\
-           .move_by_offset(207, 700)\
-           .click().perform()
+            .move_to_element(photo_button)\
+            .click().perform()
+        sleep(1)
+        next_button = self.browser.find_element_by_xpath('/html/body/div[3]/div[1]/div/div/a')
+        for i in range(1, int(num_pub)):
+            try:
+                video_button = self.browser.find_element_by_xpath('/html/body/div[3]/div[2]/div/article/div[2]/section[2]/div/span')
+                webdriver.common.action_chains.ActionChains(self.browser)\
+                    .move_to_element(video_button)\
+                    .click().perform()
+                likes = self.browser.find_element_by_xpath('/html/body/div[3]/div[2]/div/article/div[2]/section[2]/div/div/div[4]/span')
+                num_likes = num_likes + int(likes.text.replace('.',''))
+                webdriver.common.action_chains.ActionChains(self.browser)\
+                    .move_to_element(video_button)\
+                    .click().perform()
+                webdriver.common.action_chains.ActionChains(self.browser)\
+                    .move_to_element(next_button)\
+                    .click().perform()
+                sleep(1)
+            except NoSuchElementException:
+                try:
+                    likes = self.browser.find_element_by_xpath('/html/body/div[3]/div[2]/div/article/div[2]/section[2]/div/div[2]/button/span')
+                    num_likes = num_likes + int(likes.text.replace('.','')) + 1
+                except NoSuchElementException:  #spelling error making this code not work as expected
+                    likes = self.browser.find_element_by_xpath('/html/body/div[3]/div[2]/div/article/div[2]/section[2]/div/div/button/span')
+                    num_likes = num_likes + int(likes.text.replace('.',''))
+                pass
+                webdriver.common.action_chains.ActionChains(self.browser)\
+                    .move_to_element(next_button)\
+                    .click().perform()
+                sleep(1)
+            pass
+        print('Succesfull get_likes function.\n')
+        return(int(num_pub),num_likes)
         
-            
-        
-
-        
-        
-User = node("davidzabaletar")
-#followList = User.get_follow_list()
-#followingList = User.get_following_list()
-#biography = User.get_biography()
-#name = User.get_name()
-User.get_like()
-
+User = node("alejandra.sefair")
+followList = User.get_follow_list()
+followingList = User.get_following_list()
+biography = User.get_biography()
+name = User.get_name()
+likes = User.get_like()
+print(followList)
+print(followList)
+print(biography)
+print(name)
+print(likes)
                 
         
