@@ -177,16 +177,61 @@ class Node:
 
     def get_username(self):
         return self.user
+    def prove(self):
+        soccer = ['cristiano','leomessi','davidBeckham','fifaworldcup','433','neymarjr','realmadrid','fcbarcelona','paulpogba','championsleague','sporf','goalglobal','premierleague','laliga','seriea','bundesliga_en','futbolalreves','falcao','jamesrodriguez10']
+        basquet = ['nba','kingjames','stephencurry30','jharden13','russwest44','easymoneysniper','kyrieirving','nbatv','lakers','warriors','nbaontnt','jumpman23','giannis_an34','houseofhighlights']
+
+        Reguetton = ['anuel_2blea','daddyyankee','mturizomusic','nickyjampr','ozuna','brytiago','sechmusic','lunay','nattinatasha','karolg','farrukoofficial','iambeckyg','maluma','zion','jbalvin','jquiles','badbunnypr']
+        Pop = ['justinbieber','champagnepapi','teddysphotos','brunomars','taylorswift','selenagomez','dualipa','camila_cabello','iamcardib','lanadelrey','jlo','shakira','katyperry','ladygaga','arianagrande','badgalriri','postmalone','travisscott','tyga','wizkhalifa']
+        electronic = ['zedd','calvinharris','alesso','skrillex','alanwalkermusic','martingarrix','majorlazer','marshmellomusic','diplo','tiesto','davidguetta','thechainsmokers','djsnake','afrojack']
+
+        Paction = ['schwarzenegger','robertdowneyjr','chrishemsworth','thehughjackman','markruffalo','tomholland2013','universalpictures','avengers','marvelstudios','dccomics','therock','marvel']
+        Pcomedy = ['Kevinhart4real','adamsandler','jenniferaniston','jimmyfallon','theellenshow','davidspade','jackblack','willsmith','chrisrock','','','','','','']
+        Pteens = ['zendaya', 'emmawatson', 'thecameronboyce', 'ddlovato', 'mileycyrus', 'zacefron',  'debbyryan', 'colesprouse', 'nickjonas', 'bellathorne',  'bridgitmendler']
+
+        youTube = ['auronplay','soydrossrotzank','ksi','loganpaul','jakepaul','riceGum','lelepons','susanojose','curtislepore','pewdepie','elrubiuswtf','germangarmendia']
+        models = ['caradelevingne','KimKardashian','Kyliejenner','Kendalljenner','gigihadid','bellahadid','KhloeKardashian','haileybieber','alexisren','alessandraambrosio','lilyjcollins']
+
+        beauty_Health = ['fitgirlsguide','wakeupandmakeup','kyliecosmetics','Kendallandkylie','kylieskin','saschafitness','howto.makeup','fashionweek','fashionnova']
+        netflix = [ 'ester_exposito', 'itzan.escamilla', 'milliebobbybrown', 'asabopp', 'noahschnapp', '13reasonswhy', 'dylanminnette', 'justin.prentice', 'lacasadepapel', 'jaimelorentelo', 'miguel.g.herran', 'ursulolita']
+        series = ['darknetflix' , 'gameofthrones', 'suits_usa', 'houseofcards', 'cw_arrow', 'cwtheflash', 'friends', 'thewalkingdead', 'blackmirror.netflix', 'peakyblindersofficial']
+
+        memes = ['9gag','jokezar','memezar','moriderisa','paradamaslaoficial','badabun','paracaballerosoficial','bestvines','funnyhoodvidz','el_coyote_cojo','worldstar','queboleta','juanpisgonzales']
+
+        fortnite = ['fortnite', 'forrtnite',  'tfue', 'ninja', 'tsm_myth', 'tsm_daequan', 'couragejd', 'bugha', 'ighdistortion', 'hamlinz', 'mongraal']
+
+        list = []
+        list.append(soccer)
+        list.append(basquet)
+        list.append(Reguetton)
+        list.append(Pop)
+        list.append(electronic)
+        list.append(Paction)
+        list.append(Pcomedy)
+        list.append(Pteens)
+        list.append(youTube)
+        list.append(models)
+        list.append(beauty_Health)
+        list.append(netflix)
+        list.append(series)
+        list.append(memes)
+        list.append(fortnite)
+        for i in list:
+            for j in i:
+                self.browser.get('https://www.instagram.com/'+j+'/')
+                print(j)
+                sleep(0.8)
 
         
 if __name__ == "__main__":
     User = Node("valentina_9707")
+    User.prove()
     #User2 = Node("camilarocet")
-    followingList = User.get_follow_list()
+    #followingList = User.get_follow_list()
     #biography = User.get_biography()
     #name = User.get_name()
     #likes = User.get_likes()
-    print(followingList)
+    #print(followingList)
     #print(followList)
     #print(biography)
     #print(name)
