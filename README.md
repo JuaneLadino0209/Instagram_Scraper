@@ -1,2 +1,2 @@
-# Teoria_de_Grafos
-Instagram Scraper Project
+# Instagram_Scraper_Project
+Final Project, Teoria de Grafos
